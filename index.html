@@ -124,7 +124,7 @@ button:disabled{opacity:.48;filter:grayscale(.6);text-shadow:none}
 .punctuation-dot:hover,.punctuation-dot:focus-visible{box-shadow:0 5px 0 #511c4d,0 0 23px #ff72d6,inset 0 0 14px #ff72d655}
 .punctuation-label{color:#e5f4ff;font-size:16px;font-weight:700}
 @media(max-width:650px){.number-target.target-singular,.number-target.target-plural{font-size:18px}.number-marker{font-size:10px}}
-</style><header><div><div class="eyebrow">CE1 · PRODUCTION D’ÉCRIT</div><h1>L’atelier des souris</h1></div><button id="restart">Recommencer</button></header>
+</style><header><div><h1>L’atelier des souris</h1></div><button id="restart">Recommencer</button></header>
 <nav class="arcade-switch" role="group" aria-label="Choisir une activité">
 <button type="button" id="original-mode" aria-pressed="false">🐭 L’atelier des souris d’origine</button>
 <button type="button" id="arcade-mode" aria-pressed="true">⚡ Mission phrases correctes · 32 défis</button>
@@ -135,7 +135,7 @@ button:disabled{opacity:.48;filter:grayscale(.6);text-shadow:none}
 
 <main id="workshop-pages" hidden aria-label="Ateliers guidés de production de phrases CE1">
 <section class="workshop-wrap">
-<div class="kicker">CE1 · PRODUCTION D’ÉCRIT · ATELIERS GUIDÉS</div>
+<div class="kicker">ATELIERS GUIDÉS</div>
 <h2>📖 Je construis des phrases sur les animaux</h2>
 <p class="workshop-prompt">Comme dans l’atelier des souris : je complète, puis j’écris une phrase. Attention aux pièges d’accord et de sens !</p>
 <div id="workshop-tabs" class="workshop-animal-tabs" role="group" aria-label="Choisir un animal"></div>
@@ -146,9 +146,8 @@ button:disabled{opacity:.48;filter:grayscale(.6);text-shadow:none}
 </section></main>
 <main id="phrases-arcade" aria-label="Défis de production de phrases correctes">
   <section class="arcade-card">
-    <div class="arcade-head"><div><div class="kicker">CE1 · PRODUCTION D’ÉCRIT · NÉON ARCADE</div><h2>⚡ Je construis des phrases au présent</h2></div>
+    <div class="arcade-head"><div><div class="kicker">NÉON ARCADE</div><h2>⚡ Je construis des phrases au présent</h2></div>
     <div class="arcade-status"><span id="arcade-score">0 / 8</span><progress id="arcade-progress" value="0" max="8" aria-label="Progression"></progress></div></div>
-    <p class="arcade-intro">Mélange les neuf étiquettes et construis une phrase correcte avec un groupe nominal, un verbe au présent et une suite qui a du sens. Les verbes sont du premier groupe, ou être et avoir, à la troisième personne du singulier ou du pluriel.</p>
     <div class="arcade-topics" id="arcade-topics" role="group" aria-label="Choisir un animal"></div>
     <div id="arcade-task">
       <div id="arcade-counter" class="kicker">DÉFI 1 SUR 8</div>
@@ -172,7 +171,7 @@ function correctFill(a){return a[0]===1&&a[1]===2&&((a[2]===0&&a[3]===4)||(a[2]=
 $('verify').onclick=()=>{if(answers.includes(null)){$('fill-feedback').textContent='Complète les quatre cases avant de vérifier.';return}if(correctFill(answers)){fillDone=true;paint();$('fill-feedback').textContent='⭐ Bravo ! Relis le texte : « Elles » remplace « Les souris ».';$('fill-feedback').className='feedback success';$('to-write').hidden=false}else{$('fill-feedback').className='feedback warning';let hint=answers[0]!==1?'Que mangent les souris ?':answers[1]!==2?'Il y a plusieurs souris : choisis le mot qui parle de plusieurs femelles.':'Les souris sortent d’un trou. La mare est un point d’eau.';$('fill-feedback').textContent='Essaie encore. '+hint}};
 $('clear').onclick=()=>{answers=[null,null,null,null];fillDone=false;selected=0;paint();$('fill-feedback').textContent='';$('to-write').hidden=true};
 function page(id,step){['complete','write','result'].forEach(x=>$(x).hidden=x!==id);document.querySelectorAll('.step').forEach((x,i)=>{x.classList.toggle('active',i===step)});}
-$('to-write').onclick=()=>page('write',1);
+$('to-write').onclick=()=>{const bank=$('writing-bank');const tiles=[...bank.querySelectorAll('[data-group]')];for(let i=tiles.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[tiles[i],tiles[j]]=[tiles[j],tiles[i]];}bank.replaceChildren(...tiles);page('write',1)};
 function writingChecks(s){s=s.trim();return {hasText:!!s,capital:/^[A-ZÀÂÄÉÈÊËÎÏÔÖÙÛÜŸÇ]/u.test(s),point:/[.!]$/.test(s),length:s.split(/\s+/).filter(Boolean).length>=4}}
 function sentenceMeaning(text){const t=text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’]/g,"'").replace(/[.!?,;:]/g,' ').replace(/\s+/g,' ').trim();return /^(les souris|elles) ont peur des chats(?: (parce que|car) les chats les (chassent|attrapent|mangent))?$/.test(t)?'good':/les chats (jouent avec les souris|mangent des cailloux|volent dans le ciel)/.test(t)?'wrong':'unknown'}
 $('check-writing').onclick=()=>{const text=$('sentence').value,c=writingChecks(text),problems=[];if(!c.hasText)problems.push('Écris ta phrase pour commencer.');else{if(!c.capital)problems.push('Ajoute une majuscule au début.');if(!c.point)problems.push('Ajoute un point à la fin.');if(!c.length)problems.push('Développe ta phrase : qui a peur et de qui ?')}const meaning=sentenceMeaning(text);if(c.hasText&&meaning==='wrong')problems.push('Cette explication ne convient pas : choisis une raison qui a du sens.');$('write-feedback').className='feedback'+(meaning==='good'&&!problems.length?' success':'');$('write-feedback').textContent=problems.length?problems.join(' '):meaning==='good'?'Bravo ! Ta phrase a du sens.':'La présentation est correcte. Fais relire le sens et les accords par un adulte.';if(!problems.length){$('final-sentence').textContent=text.trim();page('result',2)}};
@@ -251,7 +250,7 @@ d.scenes[page].forEach((opts,i)=>{let col=el('div','workshop-word-column');col.a
 content.append(bank);let pv=el('div','workshop-preview','… … …');pv.id='workshop-preview';pv.setAttribute('aria-live','polite');content.append(pv);content.append(el('p','arcade-tips','Attention : une phrase peut être mal accordée ou ne pas avoir de sens, même si elle ressemble à une vraie phrase.'));
 }else{
 content.append(el('p','workshop-prompt','4. J’écris une phrase sur cet animal. Utilise un groupe nominal sujet au singulier ou au pluriel et un verbe du premier groupe, être ou avoir au présent.'));
-let hints=el('div','workshop-hints');d.hints.forEach(txt=>{let b=el('button','',txt);b.type='button';b.onclick=()=>{let t=$('workshop-write'),start=t.selectionStart,end=t.selectionEnd;let bef=t.value.slice(0,start),aft=t.value.slice(end);t.setRangeText((bef&&!/\s$/.test(bef)?' ':'')+txt+(aft&&!/^[\s.,!?]/.test(aft)?' ':' '),start,end,'end');t.focus();t.dispatchEvent(new Event('input'))};hints.append(b)});content.append(el('p','arcade-tips','Clique sur les groupes de mots utiles ou écris directement :'));content.append(hints);
+let hints=el('div','workshop-hints');shuffle(d.hints).forEach(txt=>{let b=el('button','',txt);b.type='button';b.onclick=()=>{let t=$('workshop-write'),start=t.selectionStart,end=t.selectionEnd;let bef=t.value.slice(0,start),aft=t.value.slice(end);t.setRangeText((bef&&!/\s$/.test(bef)?' ':'')+txt+(aft&&!/^[\s.,!?]/.test(aft)?' ':' '),start,end,'end');t.focus();t.dispatchEvent(new Event('input'))};hints.append(b)});content.append(el('p','arcade-tips','Clique sur les groupes de mots utiles ou écris directement :'));content.append(hints);
 let ta=el('textarea');ta.id='workshop-write';ta.placeholder='Écris ta phrase ici…';ta.setAttribute('aria-label','Ma phrase sur '+d.title);ta.addEventListener('input',()=>{canGo=false;$('workshop-next').disabled=true;message('')});content.append(ta);
 let punctuation=el('div','punctuation-tools');punctuation.setAttribute('aria-label','Touches de ponctuation');
 let dot=el('button','punctuation-dot','.');dot.type='button';dot.setAttribute('aria-label','Ajouter un point à la phrase');dot.title='Ajouter le point final';
