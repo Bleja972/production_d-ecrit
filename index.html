@@ -109,21 +109,16 @@ button:disabled{opacity:.48;filter:grayscale(.6);text-shadow:none}
 
 .number-help{margin:10px 0 8px;padding:12px 16px;border-radius:12px;background:#10213b;color:#e7f5ff;border:2px solid #43dfff;box-shadow:0 0 12px #36caff55;font-size:clamp(15px,2.5vw,19px);font-weight:750;line-height:1.5}
 .number-target{margin:9px 0 14px;padding:12px 16px;background:#211335;color:#fff4bd;border:2px solid #ffbf48;border-radius:12px;box-shadow:0 0 13px #fbbf4755;font-weight:900;font-size:clamp(16px,2.8vw,20px)}
-.number-marker{display:block;margin-top:5px;color:#ffe388;font-size:12px;font-weight:800;letter-spacing:.025em;line-height:1.3}
-.workshop-word-column button .number-marker{font-size:11px}
-@media(max-width:650px){.number-help,.number-target{padding:10px;font-size:15px}.number-marker{font-size:10px}}
+.workshop-word-column button @media(max-width:650px){.number-help,.number-target{padding:10px;font-size:15px}}
 
 /* Repères très visibles pour la notion de nombre */
 .number-target.target-singular{background:#f3ff1a;color:#003b49;border:3px solid #19e7ff;box-shadow:0 0 0 2px #19e7ff55,0 0 18px #f3ff1a,0 0 22px #19e7ff,inset 0 0 12px #ffffff88;text-shadow:0 0 6px #ffffff;font-size:clamp(18px,3vw,24px);font-weight:900}
 .number-target.target-plural{background:#f3ff1a;color:#5a003f;border:3px solid #ff59c7;box-shadow:0 0 0 2px #ff59c755,0 0 18px #f3ff1a,0 0 22px #ff59c7,inset 0 0 12px #ffffff88;text-shadow:0 0 6px #ffffff;font-size:clamp(18px,3vw,24px);font-weight:900}
-.number-marker{padding:4px 7px;border-radius:7px;width:fit-content}
-.number-marker.marker-singular{background:#f3ff1a;color:#003b49;border:2px solid #19e7ff;box-shadow:0 0 10px #19e7ff88,0 0 14px #f3ff1a;font-weight:800}
-.number-marker.marker-plural{background:#f3ff1a;color:#5a003f;border:2px solid #ff59c7;box-shadow:0 0 10px #ff59c788,0 0 14px #f3ff1a;font-weight:800}
 .punctuation-tools{display:flex;align-items:center;flex-wrap:wrap;gap:13px;margin:12px 0 18px}
 .punctuation-dot{min-width:72px;min-height:65px;font-size:42px;font-weight:900;line-height:1;background:#281237;color:#fff!important;border:3px solid #ff72d6!important;box-shadow:0 5px 0 #511c4d,0 0 15px #ff72d6aa,inset 0 0 14px #ff72d633;text-shadow:0 0 10px #ffb2ec}
 .punctuation-dot:hover,.punctuation-dot:focus-visible{box-shadow:0 5px 0 #511c4d,0 0 23px #ff72d6,inset 0 0 14px #ff72d655}
 .punctuation-label{color:#e5f4ff;font-size:16px;font-weight:700}
-@media(max-width:650px){.number-target.target-singular,.number-target.target-plural{font-size:18px}.number-marker{font-size:10px}}
+@media(max-width:650px){.number-target.target-singular,.number-target.target-plural{font-size:18px}}
 </style><header><div><h1>L’atelier des souris</h1></div><button id="restart">Recommencer</button></header>
 <nav class="arcade-switch" role="group" aria-label="Choisir une activité">
 <button type="button" id="original-mode" aria-pressed="false">🐭 L’atelier des souris d’origine</button>
